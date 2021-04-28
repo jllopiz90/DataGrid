@@ -1,46 +1,72 @@
-# Getting Started with Create React App
+# Introduction DataGrid Component
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A really light and simple DataGrid component to display data in a table. Was created using create react app, typescript and tailwindcss.
 
-## Available Scripts
+## How to use
 
-In the project directory, you can run:
+The component receive 3 props, all required, columns, data and renderCell. Below the description of each one of those props.
 
-### `yarn start`
+`columns`:
+columns: Column[]
+Column: {name: string, title: string }
+The name property of a column is the name of the property in the row object within the data. The title property is what will be displayed as column header in the table.
+`data`:
+data: any[]
+This props will be the array containing the data the DataGrid will show.
+`renderCell`:
+renderCell: (columnName: string, columnValue: string | boolean | number, key: string) => React.ReactElement
+renderCell is a function that will receive the column name and value and will display a cell for each element of the row.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Example
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```typescript
+const data = [
 
-### `yarn test`
+];
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+const columns = [
+  { name: "name", title: "Name" },
+  { name: "phone", title: "Phone" },
+  { name: "isActive", title: "Active" },
+  { name: "address", title: "Adress" },
+];
 
-### `yarn build`
+const renderCells = (
+  columnName: string,
+  value: any,
+  key: string
+) => {
+    if (columnName === "isActive") {
+    return (
+      <td key={key} className="px-6 py-4 whitespace-nowrap">
+        {value ? (
+          <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+            Yes
+          </span>
+        ) : (
+          <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-green-800">
+            No
+          </span>
+        )}
+      </td>
+    );
+  }
+  return (
+    <td key={key} className="px-6 py-4 whitespace-nowrap">
+      {value}
+    </td>
+  );
+};
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+const data = [
+    {name: 'Tester Testerson', phone: '(111) 111-1111', isActive: false, address: '123 st test Av Miami Fl 33133'},
+  {name: 'Testerin Teststar', phone: '(222) 222-2222', isActive: true, address: '456 st test Av Miami Fl 33133'},
+  {name: 'Testerina IV', phone: '(333) 333-3333', isActive: false, address: '789 st test Av Miami Fl 33133'},
+];
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+<DataGrid
+    columns={testColumns}
+    data={data}
+    renderCell={renderTestCells}
+/>
+```
