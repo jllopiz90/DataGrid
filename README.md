@@ -1,4 +1,4 @@
-# Introduction DataGrid Component
+# Overview DataGrid Component
 
 A really light and simple DataGrid component to display data in a table. Was created using create react app, typescript and tailwindcss.
 
@@ -18,14 +18,20 @@ Column: {
 }
 ```
 
-The name property of a column is the name of the property in the row object within the data.
-The title property is what will be displayed as column header in the table.
-The filterPredicate should be a function to place in the onChange of a search text input that will show up below the column header in case that is present in the column object and the filters are visible.
-The customFilterInput will replace the default text input for the search filter, the filterPredicate is not necessary to be present on this case because the custom input should be handling that logic, if both filterPredicate and customFilerInput are present the filterPredicate will be ignored.
+The name property of a column is the name of the property in the row object within the data.\
+The title property is what will be displayed as column header in the table.\
+The filterPredicate should be a function to place in the onChange of a search text input that will show up below the column header in case that is present in the column object and the filters are visible.\
+The customFilterInput will replace the default text input for the search filter, the filterPredicate is not necessary to be present on this case because the custom input should be handling that logic, if both filterPredicate and customFilerInput are present the filterPredicate will be ignored.\
+
+
 `data`:
+
 data: any[]
 This props will be the array containing the data the DataGrid will show.
+
+
 `renderCell`:
+
 renderCell: (columnName: string, columnValue: string | boolean | number, key: string) => React.ReactElement
 renderCell is a function that will receive the column name and value and will display a cell for each element of the row.
 
