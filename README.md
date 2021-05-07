@@ -79,6 +79,8 @@ const data = [
 />
 ```
 
+<img width="741" alt="Screen Shot 2021-05-07 at 2 45 29 PM" src="https://user-images.githubusercontent.com/17462829/117494881-ed5e1380-af42-11eb-83c1-723ef23ff741.png">
+
 ## Example with filters
 
 ```typescript
@@ -137,3 +139,5 @@ const filterName = (str: string) => {
     renderCell={renderTestCells}
 />
 ```
+
+<img width="803" alt="Screen Shot 2021-05-07 at 2 42 52 PM" src="https://user-images.githubusercontent.com/17462829/117494941-05359780-af43-11eb-9f71-264cb3b7003a.png">
