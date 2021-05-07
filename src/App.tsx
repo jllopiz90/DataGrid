@@ -1,12 +1,6 @@
+import { useState } from 'react';
 import "./App.css";
 import DataGrid from "./components/DataGrid";
-
-const testColumns = [
-  { name: "name", title: "Name" },
-  { name: "phone", title: "Phone" },
-  { name: "isActive", title: "Active" },
-  { name: "address", title: "Adress" },
-];
 
 const renderTestCells = (columnName: string, value: any, key: string) => {
   if (columnName === "isActive") {
@@ -53,13 +47,30 @@ const testData = [
 ];
 
 function App() {
+  const [data, setData] = useState(testData);
+  
+  const filterName = (str: string) => {
+    //@ts-ignore;
+    console.log('data',data)
+    const dataFiltered = data.filter((row) => row.name.toLowerCase().startsWith(str.toLowerCase()));
+    console.log('str', str)
+    console.log('dataFiltered',dataFiltered)
+    setData(dataFiltered);
+  }
+
+  const testColumns = [
+    { name: "name", title: "Name", filterPredicate: filterName },
+    { name: "phone", title: "Phone" },
+    { name: "isActive", title: "Active" },
+    { name: "address", title: "Adress" },
+  ];
   return (
     <div className="flex flex-col justify-center items-center py-10 bg-gray-400">
       <span className="text-green-400 text-xl font-bold">Datagrid example</span>
       <div className="mt-10">
         <DataGrid
           columns={testColumns}
-          data={testData}
+          data={data}
           renderCell={renderTestCells}
         />
       </div>
