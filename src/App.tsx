@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import "./App.css";
 import DataGrid from "./components/DataGrid";
+import { debounce } from './utils/utils';
 
 const renderTestCells = (columnName: string, value: any, key: string) => {
   if (columnName === "isActive") {
@@ -51,15 +52,15 @@ function App() {
   
   const filterName = (str: string) => {
     //@ts-ignore;
-    console.log('data',data)
-    const dataFiltered = testData.filter((row) => row.name.toLowerCase().startsWith(str.toLowerCase()));
+    // console.log('data',data)
+    // const dataFiltered = testData.filter((row) => row.name.toLowerCase().startsWith(str.toLowerCase()));
     console.log('str', str)
-    console.log('dataFiltered',dataFiltered)
-    setData(dataFiltered);
+    // console.log('dataFiltered',dataFiltered)
+    // setData(dataFiltered);
   }
 
   const testColumns = [
-    { name: "name", title: "Name", filterPredicate: filterName},
+    { name: "name", title: "Name", filterPredicate: debounce(filterName, 1000, true)},
     { name: "phone", title: "Phone" },
     { name: "isActive", title: "Active" },
     { name: "address", title: "Adress" },
