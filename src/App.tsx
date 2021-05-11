@@ -53,14 +53,14 @@ function App() {
   const filterName = (str: string) => {
     //@ts-ignore;
     // console.log('data',data)
-    // const dataFiltered = testData.filter((row) => row.name.toLowerCase().startsWith(str.toLowerCase()));
+    const dataFiltered = testData.filter((row) => row.name.toLowerCase().startsWith(str.toLowerCase()));
     console.log('str', str)
     // console.log('dataFiltered',dataFiltered)
-    // setData(dataFiltered);
+    setData(dataFiltered);
   }
 
   const testColumns = [
-    { name: "name", title: "Name", filterPredicate: debounce(filterName, 1000, true)},
+    { name: "name", title: "Name", filterPredicate: filterName},
     { name: "phone", title: "Phone" },
     { name: "isActive", title: "Active" },
     { name: "address", title: "Adress" },

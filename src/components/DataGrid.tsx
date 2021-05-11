@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Loading from "./Loading";
 import ShowError from "./ShowError";
+import { debounce } from "../utils/utils";
 interface Column {
   name: string;
   title: string;
@@ -70,38 +71,43 @@ const DataGrid: React.FC<DataGridProps> = ({
                     (
                       { title, name, filterPredicate, customFilterInput },
                       index
-                    ) => (
-                      <th
-                        key={`${title}_${index}`}
-                        scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        <div className="flex flex-col">
-                          {title}
-                          {showFilters && customFilterInput}
-                          {showFilters &&
-                            !customFilterInput &&
-                            !!filterPredicate && (
-                              <input
-                                id={`${name}_${index}`}
-                                name={name}
-                                className="block mt-1 w-full px-3 py-1 placeholder-gray-400 transition duration-150 ease-in-out border border-gray-300 rounded-md appearance-none focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
-                                onChange={(event) =>
-                                  !!filterPredicate &&
-                                  filterPredicate(event.target.value)
-                                }
-                              />
-                            )}
-                          {showFilters &&
-                            !customFilterInput &&
-                            !filterPredicate && (
-                              <span className="block mt-1 w-full px-3 py-1 placeholder-gray-400 transition duration-150 ease-in-out rounded-md appearance-none focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5">
-                                -
-                              </span>
-                            )}
-                        </div>
-                      </th>
-                    )
+                    ) => {
+                      const debouncedFilter = debounce(
+                        (event: any) =>
+                          !!filterPredicate &&
+                          filterPredicate(event.target.value),
+                        300
+                      );
+                      return (
+                        <th
+                          key={`${title}_${index}`}
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        >
+                          <div className="flex flex-col">
+                            {title}
+                            {showFilters && customFilterInput}
+                            {showFilters &&
+                              !customFilterInput &&
+                              !!filterPredicate && (
+                                <input
+                                  id={`${name}_${index}`}
+                                  name={name}
+                                  className="block mt-1 w-full px-3 py-1 placeholder-gray-400 transition duration-150 ease-in-out border border-gray-300 rounded-md appearance-none focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                                  onChange={debouncedFilter}
+                                />
+                              )}
+                            {showFilters &&
+                              !customFilterInput &&
+                              !filterPredicate && (
+                                <span className="block mt-1 w-full px-3 py-1 placeholder-gray-400 transition duration-150 ease-in-out rounded-md appearance-none focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5">
+                                  -
+                                </span>
+                              )}
+                          </div>
+                        </th>
+                      );
+                    }
                   )}
                 </tr>
               </thead>
