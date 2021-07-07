@@ -20,7 +20,7 @@ const renderTestCells = (columnName: string, value: any, key: string) => {
     );
   }
   return (
-    <td key={key} className="px-6 py-4 whitespace-nowrap">
+    <td key={key} className="px-6 py-4 whitespace-wrap">
       {value}
     </td>
   );
@@ -28,7 +28,7 @@ const renderTestCells = (columnName: string, value: any, key: string) => {
 
 const testData = [
   {
-    name: "Tester Testerson",
+    name: "Tester Testerson Receive leads from LeadConduit and other sources, send them to TKA CRM & Contact Center, and distribute confirmed appointments in round robin mode over a list of API endpoints.",
     phone: "(111) 111-1111",
     isActive: false,
     address: "123 st test Av Miami Fl 33133",
